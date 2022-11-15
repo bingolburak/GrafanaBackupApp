@@ -1,0 +1,5 @@
+grafana:
+  url: ${GRAFANA_URL:localhost}
+  port: ${GRAFANA_PORT:3000}
+  username: ${GRAFANA_USERNAME:admin}
+  password: ${GRAFANA_PASSWORD:admin}

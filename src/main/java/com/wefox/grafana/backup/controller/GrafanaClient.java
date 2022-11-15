@@ -4,29 +4,40 @@ import org.springframework.web.reactive.function.client.ExchangeFilterFunctions;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class GrafanaClient {
-    private String grafanaUrl;
+    private String grafanaHost;
+    private int grafanaPort;
     private String username;
     private String password;
 
-    public GrafanaClient(String grafanaUrl, String username, String password) {
-        this.grafanaUrl = grafanaUrl;
+    public GrafanaClient(String grafanaHost, int grafanaPort, String username, String password) {
+        this.grafanaHost = grafanaHost;
+        this.grafanaPort = grafanaPort;
         this.username = username;
         this.password = password;
     }
 
     public WebClient createWebClient(){
-        WebClient client = WebClient.builder().baseUrl(grafanaUrl)
+        String url = "http://" +grafanaHost+":"+grafanaPort;
+        WebClient client = WebClient.builder().baseUrl(url)
                 .defaultHeader("Content-Type", "application/json")
                 .filter(ExchangeFilterFunctions.basicAuthentication(username,password))
                 .build();
         return client;
     }
-    public String getGrafanaUrl() {
-        return grafanaUrl;
+    public String getGrafanaHost() {
+        return grafanaHost;
     }
 
-    public void setGrafanaUrl(String grafanaUrl) {
-        this.grafanaUrl = grafanaUrl;
+    public void setGrafanaHost(String grafanaHost) {
+        this.grafanaHost = grafanaHost;
+    }
+
+    public int getGrafanaPort() {
+        return grafanaPort;
+    }
+
+    public void setGrafanaPort(String grafanaPort) {
+        this.grafanaHost = grafanaPort;
     }
 
     public String getUsername() {
